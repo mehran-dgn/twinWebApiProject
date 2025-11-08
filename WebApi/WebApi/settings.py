@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'main.apps.MainConfig',
     'accounts.apps.AccountsConfig',
+    'blog.apps.BlogConfig',
     'jalali_date'
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +57,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'WebApi.urls'
+
+
+
 
 TEMPLATES = [
     {
@@ -77,7 +82,7 @@ WSGI_APPLICATION = 'WebApi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -86,6 +91,14 @@ DATABASES = {
         'PASSWORD': '123456789', 
         'HOST': 'localhost',    
         'PORT': '5432',         
+    }
+}
+"""
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "WebAPIDB",
     }
 }
 
@@ -130,10 +143,16 @@ LOCALE_PATHS = [
     BASE_DIR / 'locale',
 ]
 
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "/statics/"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
