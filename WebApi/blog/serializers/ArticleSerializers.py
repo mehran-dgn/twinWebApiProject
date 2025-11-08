@@ -48,7 +48,7 @@ class ArticlesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = "__all__"
+        exclude = ['Body']
 
 
 class ENArticlesSerializer(serializers.ModelSerializer):
@@ -57,4 +57,4 @@ class ENArticlesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ENArticle
-        fields = "__all__"
+        fields = ['Body']
