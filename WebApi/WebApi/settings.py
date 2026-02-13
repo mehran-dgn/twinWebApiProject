@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'main.apps.MainConfig',
     'accounts.apps.AccountsConfig',
     'blog.apps.BlogConfig',
-    'jalali_date',
+    #'jalali_date',
     'rest_framework_simplejwt.token_blacklist',
     'log.apps.LogConfig'
 
