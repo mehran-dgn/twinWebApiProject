@@ -40,8 +40,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'main.apps.MainConfig',
     'accounts.apps.AccountsConfig',
-    'jalali_date'
+    'blog.apps.BlogConfig',
+    #'jalali_date',
+    'rest_framework_simplejwt.token_blacklist',
+    'log.apps.LogConfig'
+
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +60,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'WebApi.urls'
+
+
+
 
 TEMPLATES = [
     {
@@ -77,7 +85,7 @@ WSGI_APPLICATION = 'WebApi.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -86,6 +94,14 @@ DATABASES = {
         'PASSWORD': '123456789', 
         'HOST': 'localhost',    
         'PORT': '5432',         
+    }
+}
+"""
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "WebAPIDB",
     }
 }
 
@@ -130,12 +146,31 @@ LOCALE_PATHS = [
     BASE_DIR / 'locale',
 ]
 
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "/statics/"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AUTH_USER_MODEL = "accounts.User"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+}
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+]
