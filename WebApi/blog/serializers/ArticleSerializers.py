@@ -58,3 +58,22 @@ class ENArticlesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ENArticle
         exclude = ['Body']
+
+
+class ArticleDetailSerializer(serializers.ModelSerializer):
+    ArticleCategory = ArticlesCategorySerializer(many=True, read_only=True)
+    ArticleTags = ArticleTagsSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Article
+        fields = '__all__'
+
+
+
+class ENArticleDetailSerializer(serializers.ModelSerializer):
+    ArticleCategory = ENArticlesCategorySerializer(many=True, read_only=True)
+    ArticleTags = ENArticleTagsSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = ENArticle
+        fields = '__all__'

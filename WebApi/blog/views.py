@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import ArticlesCategory , ENArticlesCategory , ArticleTags, ENArticleTags ,Article , ENArticle
-from .serializers.ArticleSerializers import ArticlesCategorySerializer,ENArticlesCategorySerializer, ArticleTagsSerializer, ENArticleTagsSerializer, ArticlesSerializer,ENArticlesSerializer
+from .serializers.ArticleSerializers import ArticlesCategorySerializer,ENArticlesCategorySerializer, ArticleTagsSerializer, ENArticleTagsSerializer, ArticlesSerializer,ENArticlesSerializer , ArticleDetailSerializer , ENArticleDetailSerializer
 from rest_framework import generics
 from .helpers.ApiHelpers import CustomPaginationClass
 
@@ -36,3 +36,37 @@ class ENArticleListAPIView(generics.ListAPIView):
 
     def get_queryset(self):
         return ENArticle.objects.all().order_by('-CreateDate')
+
+
+class ArticlesByCategoryAPIView(generics.ListAPIView):
+    serializer_class = ArticlesSerializer
+    
+
+    def get_queryset(self):
+        category_id = self.kwargs.get('category_id')
+        return Article.objects.filter(
+            ArticleCategory__id=category_id
+        ).order_by('-CreateDate')
+
+
+class ENArticlesByCategoryAPIView(generics.ListAPIView):
+    serializer_class = ENArticlesSerializer
+    
+
+    def get_queryset(self):
+        category_id = self.kwargs.get('category_id')
+        return ENArticle.objects.filter(
+            ArticleCategory__id=category_id
+        ).order_by('-CreateDate')
+
+
+class ArticleDetailAPIView(generics.RetrieveAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleDetailSerializer
+    lookup_field = 'id'
+
+
+class ENArticleDetailAPIView(generics.RetrieveAPIView):
+    queryset = ENArticle.objects.all()
+    serializer_class = ENArticleDetailSerializer
+    lookup_field = 'id'
